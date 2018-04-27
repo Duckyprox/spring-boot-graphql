@@ -18,6 +18,6 @@ public class BookDataFetcher implements DataFetcher<Book> {
     @Override
     public Book get(DataFetchingEnvironment dataFetchingEnvironment) {
         Map arguments = dataFetchingEnvironment.getArguments();
-        return bookRepository.findOneById(arguments.get("id").toString());
+        return bookRepository.findOneById(Integer.parseInt(arguments.get("id").toString()));
     }
 }

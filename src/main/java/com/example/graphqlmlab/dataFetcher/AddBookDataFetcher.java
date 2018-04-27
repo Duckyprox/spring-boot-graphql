@@ -1,6 +1,5 @@
 package com.example.graphqlmlab.dataFetcher;
 
-import com.example.graphqlmlab.models.Author;
 import com.example.graphqlmlab.models.Book;
 import com.example.graphqlmlab.repositories.AuthorRepository;
 import com.example.graphqlmlab.repositories.BookRepository;
@@ -16,7 +15,6 @@ public class AddBookDataFetcher implements DataFetcher<Book> {
 
     @Autowired
     private BookRepository bookRepository;
-    private AuthorRepository authorRepository;
 
     @Override
     public Book get(DataFetchingEnvironment dataFetchingEnvironment) {
@@ -24,12 +22,11 @@ public class AddBookDataFetcher implements DataFetcher<Book> {
         System.out.println(arguments);
         String name = arguments.get("name").toString();
         String genre = arguments.get("genre").toString();
-        String authorId = arguments.get("authorId").toString();
+        int authorId = Integer.parseInt(arguments.get("authorId").toString());
         Book book = new Book();
         book.setName(name);
         book.setGenre(genre);
-        Author author = authorRepository.findOneById(authorId);
-        book.setAuthor(author);
+        book.setAuthorId(authorId);
         bookRepository.save(book);
         return book;
     }

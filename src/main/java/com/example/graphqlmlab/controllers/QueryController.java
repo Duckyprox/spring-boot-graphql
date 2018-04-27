@@ -1,9 +1,6 @@
 package com.example.graphqlmlab.controllers;
 
-import com.example.graphqlmlab.dataFetcher.AddBookDataFetcher;
-import com.example.graphqlmlab.dataFetcher.AllAuthorDataFetcher;
-import com.example.graphqlmlab.dataFetcher.AllBookDataFetcher;
-import com.example.graphqlmlab.dataFetcher.BookDataFetcher;
+import com.example.graphqlmlab.dataFetcher.*;
 import graphql.ExecutionResult;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
@@ -39,6 +36,9 @@ public class QueryController {
     @Autowired
     private AllAuthorDataFetcher allAuthorDataFetcher;
 
+    @Autowired
+    private AddAuthorDataFetcher addAuthorDataFetcher;
+
     @Value("classpath:schema.graphqls")
     private org.springframework.core.io.Resource schemaResource;
 
@@ -58,7 +58,8 @@ public class QueryController {
                         .dataFetcher("book", bookDataFetcher)
                         .dataFetcher("allAuthors", allAuthorDataFetcher))
                 .type("Mutation", typeWiring -> typeWiring
-                        .dataFetcher("newBook", addBookDataFetcher))
+                        .dataFetcher("newBook", addBookDataFetcher)
+                        .dataFetcher("newAuthor", addAuthorDataFetcher))
                 .build();
     }
 

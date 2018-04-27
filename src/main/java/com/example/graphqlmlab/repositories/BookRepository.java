@@ -1,13 +1,15 @@
 package com.example.graphqlmlab.repositories;
 
 import com.example.graphqlmlab.models.Book;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface BookRepository extends MongoRepository<Book, String> {
+@Repository
+public interface BookRepository extends CrudRepository<Book, Integer> {
 
-    Book findOneById(String id);
+    Book findOneById(int id);
 
-    List<Book> findAllByAuthorId(String authorId);
+    List<Book> findAllByAuthorId(int authorId);
 }
